@@ -1,0 +1,21 @@
+namespace MovieMining
+
+Genre(类别): ConceptType
+	hypernymPredicate: isA
+
+Movie(电影): EntityType
+	properties:
+		introduction(简介): Text
+		rating(评分): Float
+		releaseDate(上映日期): Text
+	relations:
+		hasGenre(属于类别): Genre
+
+Person(演员): EntityType
+	properties:
+		birthDate(出生日期): Text
+		deathDate(死亡日期): Text
+		biography(个人简介): Text
+		birthPlace(出生地): Text
+	relations:
+		actIn(出演): Movie

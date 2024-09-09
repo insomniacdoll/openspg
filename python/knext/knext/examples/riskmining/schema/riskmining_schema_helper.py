@@ -15,84 +15,99 @@
 # PLEASE DO NOT MODIFY THIS FILE!!!
 #
 
-from knext.schema.model.schema_helper import (
-    SPGTypeHelper,
-    PropertyHelper,
-    RelationHelper,
-)
+from knext.schema.model.schema_helper import SPGTypeHelper, PropertyHelper, RelationHelper
 
 
 class RiskMining:
+    
     class App(SPGTypeHelper):
-
-        id = PropertyHelper("id")
-        description = PropertyHelper("description")
-        belongTo = PropertyHelper("belongTo")
+        
+    
         useCert = PropertyHelper("useCert")
-        name = PropertyHelper("name")
-        riskMark = PropertyHelper("riskMark")
-
-    class Cert(SPGTypeHelper):
-
-        name = PropertyHelper("name")
-        id = PropertyHelper("id")
-        description = PropertyHelper("description")
-        certNum = PropertyHelper("certNum")
-
-    class Company(SPGTypeHelper):
-
-        name = PropertyHelper("name")
-        id = PropertyHelper("id")
-        description = PropertyHelper("description")
-        hasPhone = PropertyHelper("hasPhone")
-
-        holdShare = RelationHelper("holdShare")
-        hasCert = RelationHelper("hasCert")
-
-    class Device(SPGTypeHelper):
-
-        install = PropertyHelper("install")
-        id = PropertyHelper("id")
-        umid = PropertyHelper("umid")
-        description = PropertyHelper("description")
-        name = PropertyHelper("name")
-
-    class Person(SPGTypeHelper):
-        class fundTrans(RelationHelper):
-            transDate = PropertyHelper("transDate")
-            transAmt = PropertyHelper("transAmt")
-
-        hasPhone = PropertyHelper("hasPhone")
-        id = PropertyHelper("id")
-        description = PropertyHelper("description")
         belongTo = PropertyHelper("belongTo")
-        age = PropertyHelper("age")
+        riskMark = PropertyHelper("riskMark")
+        description = PropertyHelper("description")
+        id = PropertyHelper("id")
         name = PropertyHelper("name")
-
+    
+    
+    
+    class Cert(SPGTypeHelper):
+        
+    
+        id = PropertyHelper("id")
+        certNum = PropertyHelper("certNum")
+        name = PropertyHelper("name")
+        description = PropertyHelper("description")
+    
+    
+    
+    class Company(SPGTypeHelper):
+        
+    
+        id = PropertyHelper("id")
+        hasPhone = PropertyHelper("hasPhone")
+        name = PropertyHelper("name")
+        description = PropertyHelper("description")
+    
         holdShare = RelationHelper("holdShare")
-        developed = RelationHelper("developed")
-        hasDevice = RelationHelper("hasDevice")
         hasCert = RelationHelper("hasCert")
+    
+    
+    class Device(SPGTypeHelper):
+        
+    
+        umid = PropertyHelper("umid")
+        install = PropertyHelper("install")
+        description = PropertyHelper("description")
+        id = PropertyHelper("id")
+        name = PropertyHelper("name")
+    
+    
+    
+    class Person(SPGTypeHelper):
+        
+        class fundTrans(RelationHelper):
+            transAmt = PropertyHelper("transAmt")
+            transDate = PropertyHelper("transDate")
+    
+        hasPhone = PropertyHelper("hasPhone")
+        belongTo = PropertyHelper("belongTo")
+        description = PropertyHelper("description")
+        id = PropertyHelper("id")
+        name = PropertyHelper("name")
+        age = PropertyHelper("age")
+    
+        holdShare = RelationHelper("holdShare")
         release = RelationHelper("release")
-
+        hasDevice = RelationHelper("hasDevice")
+        developed = RelationHelper("developed")
+        hasCert = RelationHelper("hasCert")
+    
         fundTrans = fundTrans("fundTrans")
-
+    
     class TaxOfRiskApp(SPGTypeHelper):
-
-        id = PropertyHelper("id")
+        
+    
+        stdId = PropertyHelper("stdId")
         alias = PropertyHelper("alias")
         description = PropertyHelper("description")
-        stdId = PropertyHelper("stdId")
+        id = PropertyHelper("id")
         name = PropertyHelper("name")
-
+    
+    
+    
     class TaxOfRiskUser(SPGTypeHelper):
-
-        id = PropertyHelper("id")
+        
+    
+        stdId = PropertyHelper("stdId")
         alias = PropertyHelper("alias")
         description = PropertyHelper("description")
-        stdId = PropertyHelper("stdId")
+        id = PropertyHelper("id")
         name = PropertyHelper("name")
-
+    
+    
+    
     App = App("RiskMining.App")
     Cert = Cert("RiskMining.Cert")
     Company = Company("RiskMining.Company")
@@ -100,5 +115,5 @@ class RiskMining:
     Person = Person("RiskMining.Person")
     TaxOfRiskApp = TaxOfRiskApp("RiskMining.TaxOfRiskApp")
     TaxOfRiskUser = TaxOfRiskUser("RiskMining.TaxOfRiskUser")
-
+    
     pass
