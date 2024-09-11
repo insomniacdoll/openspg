@@ -23,23 +23,23 @@ class MovieMining:
     class Genre(SPGTypeHelper):
         
     
+        name = PropertyHelper("name")
         id = PropertyHelper("id")
+        description = PropertyHelper("description")
         alias = PropertyHelper("alias")
         stdId = PropertyHelper("stdId")
-        name = PropertyHelper("name")
-        description = PropertyHelper("description")
     
     
     
     class Movie(SPGTypeHelper):
         
     
-        releaseDate = PropertyHelper("releaseDate")
+        name = PropertyHelper("name")
         id = PropertyHelper("id")
         rating = PropertyHelper("rating")
-        name = PropertyHelper("name")
         description = PropertyHelper("description")
         introduction = PropertyHelper("introduction")
+        releaseDate = PropertyHelper("releaseDate")
     
         hasGenre = RelationHelper("hasGenre")
     
@@ -47,10 +47,10 @@ class MovieMining:
     class Person(SPGTypeHelper):
         
     
+        name = PropertyHelper("name")
+        deathDate = PropertyHelper("deathDate")
         id = PropertyHelper("id")
         biography = PropertyHelper("biography")
-        deathDate = PropertyHelper("deathDate")
-        name = PropertyHelper("name")
         birthDate = PropertyHelper("birthDate")
         description = PropertyHelper("description")
         birthPlace = PropertyHelper("birthPlace")
