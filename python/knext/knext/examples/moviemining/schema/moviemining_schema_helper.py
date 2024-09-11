@@ -26,8 +26,6 @@ class MovieMining:
         name = PropertyHelper("name")
         id = PropertyHelper("id")
         description = PropertyHelper("description")
-        alias = PropertyHelper("alias")
-        stdId = PropertyHelper("stdId")
     
     
     
@@ -35,11 +33,11 @@ class MovieMining:
         
     
         name = PropertyHelper("name")
-        id = PropertyHelper("id")
-        rating = PropertyHelper("rating")
-        description = PropertyHelper("description")
         introduction = PropertyHelper("introduction")
+        rating = PropertyHelper("rating")
         releaseDate = PropertyHelper("releaseDate")
+        id = PropertyHelper("id")
+        description = PropertyHelper("description")
     
         hasGenre = RelationHelper("hasGenre")
     
@@ -48,12 +46,12 @@ class MovieMining:
         
     
         name = PropertyHelper("name")
+        birthPlace = PropertyHelper("birthPlace")
         deathDate = PropertyHelper("deathDate")
-        id = PropertyHelper("id")
         biography = PropertyHelper("biography")
         birthDate = PropertyHelper("birthDate")
+        id = PropertyHelper("id")
         description = PropertyHelper("description")
-        birthPlace = PropertyHelper("birthPlace")
     
         actIn = RelationHelper("actIn")
     

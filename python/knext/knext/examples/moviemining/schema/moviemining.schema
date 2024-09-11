@@ -1,7 +1,6 @@
 namespace MovieMining
 
-Genre(类别): ConceptType
-	hypernymPredicate: isA
+Genre(类别): EntityType
 
 Movie(电影): EntityType
 	properties:
