@@ -1,6 +1,6 @@
 namespace MovieMining
 
-Genre(类别): EntityType
+Genre(类别): ConceptType
 
 Movie(电影): EntityType
 	properties:

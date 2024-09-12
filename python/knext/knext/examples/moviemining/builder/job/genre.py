@@ -30,6 +30,7 @@ class Genre(BuilderJob):
             SPGTypeMapping(spg_type_name=MovieMining.Genre)
             .add_property_mapping("gid", MovieMining.Genre.id)
             .add_property_mapping("gname", MovieMining.Genre.name)
+            .add_property_mapping('gname', MovieMining.Genre.alias)
         )
 
         sink = KGWriter()
