@@ -23,6 +23,8 @@ public class ApiConstants {
   public static final String ENV = "env";
   public static final String ACCESS_ID = "accessId";
   public static final String ACCESS_KEY = "accessKey";
+  public static final String USERNAME = "username";
+  public static final String PASSWORD = "password";
   public static final String HOST = "host";
   public static final String TIMEOUT = "timeout";
   public static final String PORT = "port";
