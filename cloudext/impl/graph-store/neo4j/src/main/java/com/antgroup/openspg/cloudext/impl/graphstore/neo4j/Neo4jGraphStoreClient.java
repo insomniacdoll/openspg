@@ -1,6 +1,7 @@
 package com.antgroup.openspg.cloudext.impl.graphstore.neo4j;
 
 
+import com.antgroup.openspg.cloudext.impl.graphstore.neo4j.util.Neo4jGraphSchemaUtils;
 import com.antgroup.openspg.cloudext.interfaces.graphstore.BaseLPGGraphStoreClient;
 import com.antgroup.openspg.cloudext.interfaces.graphstore.LPGInternalIdGenerator;
 import com.antgroup.openspg.cloudext.interfaces.graphstore.LPGTypeNameConvertor;
@@ -9,8 +10,11 @@ import com.antgroup.openspg.cloudext.interfaces.graphstore.impl.NoChangedIdGener
 import com.antgroup.openspg.cloudext.interfaces.graphstore.model.lpg.record.EdgeRecord;
 import com.antgroup.openspg.cloudext.interfaces.graphstore.model.lpg.record.VertexRecord;
 import com.antgroup.openspg.cloudext.interfaces.graphstore.model.lpg.record.struct.BaseLPGRecordStruct;
+import com.antgroup.openspg.cloudext.interfaces.graphstore.model.lpg.schema.EdgeType;
 import com.antgroup.openspg.cloudext.interfaces.graphstore.model.lpg.schema.LPGSchema;
+import com.antgroup.openspg.cloudext.interfaces.graphstore.model.lpg.schema.VertexType;
 import com.antgroup.openspg.cloudext.interfaces.graphstore.model.lpg.schema.operation.*;
+import com.antgroup.openspg.cloudext.interfaces.graphstore.util.TypeNameUtils;
 import com.antgroup.openspg.server.api.facade.ApiConstants;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +57,7 @@ public class Neo4jGraphStoreClient extends BaseLPGGraphStoreClient {
     }
 
     private Driver initNeo4jGraphClient(UriComponents uriComponents) {
-        String host = String.format("%s:%s", uriComponents.getHost(), uriComponents.getPort());
+        String host = String.format("neo4j://%s:%s", uriComponents.getHost(), uriComponents.getPort());
         String username = uriComponents.getQueryParams().getFirst(ApiConstants.USERNAME);
         String password = uriComponents.getQueryParams().getFirst(ApiConstants.PASSWORD);
         Driver driver;
@@ -67,7 +71,17 @@ public class Neo4jGraphStoreClient extends BaseLPGGraphStoreClient {
 
     @Override
     public LPGSchema querySchema() {
-        return null;
+        List<VertexType> vertexTypes = null;
+        List<EdgeType> edgeTypes = null;
+        try {
+            vertexTypes = Neo4jGraphSchemaUtils.getVertexTypes(client, database, timeout);
+            edgeTypes = Neo4jGraphSchemaUtils.getEdgeTypes(client, database, timeout);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        LPGSchema lpgSchema = new LPGSchema(vertexTypes, edgeTypes);
+        TypeNameUtils.restoreTypeName(lpgSchema, typeNameConvertor);
+        return lpgSchema;
     }
 
     @Override
