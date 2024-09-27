@@ -18,6 +18,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.neo4j.driver.Driver;
 import org.neo4j.driver.Result;
 import org.neo4j.driver.Session;
+import org.neo4j.driver.SessionConfig;
 
 import java.util.List;
 
@@ -25,14 +26,14 @@ import java.util.List;
 public class Neo4jGraphSchemaUtils {
 
     public static List<VertexType> getVertexTypes(
-            Driver client, String graphName, Double timeout) throws Exception {
-        List<String> labelNames = getSchemaLabels(TypeEnum.VERTEX, client, graphName, timeout);
+            Driver client, String database, Double timeout) throws Exception {
+        List<String> labelNames = getSchemaLabels(TypeEnum.VERTEX, client, database, timeout);
         if (CollectionUtils.isEmpty(labelNames)) {
             return Lists.newArrayList();
         }
         List<VertexType> vertexSchemaList = Lists.newArrayList();
         for (String labelName : labelNames) {
-            VertexType vertexSchema = getVertexSchemaByLabel(labelName, client, graphName, timeout);
+            VertexType vertexSchema = getVertexSchemaByLabel(labelName, client, database, timeout);
             if (vertexSchema != null) {
                 vertexSchemaList.add(vertexSchema);
             }
@@ -41,14 +42,14 @@ public class Neo4jGraphSchemaUtils {
     }
 
     public static List<EdgeType> getEdgeTypes(
-            Driver client, String graphName, Double timeout) throws Exception {
-        List<String> labelNames = getSchemaLabels(TypeEnum.EDGE, client, graphName, timeout);
+            Driver client, String database, Double timeout) throws Exception {
+        List<String> labelNames = getSchemaLabels(TypeEnum.EDGE, client, database, timeout);
         if (CollectionUtils.isEmpty(labelNames)) {
             return Lists.newArrayList();
         }
         List<EdgeType> edgeSchemaList = Lists.newArrayList();
         for (String labelName : labelNames) {
-            EdgeType edgeSchema = getEdgeSchemaByLabel(labelName, client, graphName, timeout);
+            EdgeType edgeSchema = getEdgeSchemaByLabel(labelName, client, database, timeout);
             if (edgeSchema != null) {
                 edgeSchemaList.add(edgeSchema);
             }
@@ -57,10 +58,10 @@ public class Neo4jGraphSchemaUtils {
     }
 
     public static List<String> getSchemaLabels(
-            TypeEnum dataTypeEnum, Driver client, String graphName, Double timeout)
+            TypeEnum dataTypeEnum, Driver client, String database, Double timeout)
             throws Exception {
         String cypher = QueryLabelsProcedure.of(dataTypeEnum).getCypher();
-        Session session = client.session();
+        Session session = client.session(SessionConfig.forDatabase(database));
         Result result = session.run(cypher);
         String labelsJsonStr = result.toString();
         List<QueryLabelsResult> results =
@@ -70,10 +71,10 @@ public class Neo4jGraphSchemaUtils {
     }
 
     public static VertexType getVertexSchemaByLabel(
-            String labelName, Driver client, String graphName, Double timeout)
+            String labelName, Driver client, String database, Double timeout)
             throws Exception {
         String cypher = GetVertexSchemaProcedure.of(labelName).getCypher();
-        Session session = client.session();
+        Session session = client.session(SessionConfig.forDatabase(database));
         Result result = session.run(cypher);
         String vertexSchemaJsonStr = result.toString();
         List<GetVertexSchemaResult> results =
@@ -86,10 +87,10 @@ public class Neo4jGraphSchemaUtils {
     }
 
     public static EdgeType getEdgeSchemaByLabel(
-            String labelName, Driver client, String graphName, Double timeout)
+            String labelName, Driver client, String database, Double timeout)
             throws Exception {
         String cypher = GetEdgeSchemaProcedure.of(labelName).getCypher();
-        Session session = client.session();
+        Session session = client.session(SessionConfig.forDatabase(database));
         Result result = session.run(cypher);
         String edgeSchemaJsonStr = result.toString();
         List<GetEdgeSchemaResult> results =
